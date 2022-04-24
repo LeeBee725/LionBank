@@ -1,25 +1,22 @@
-from .account import Account
-
+# from .account import Account
 
 class BankService:
 	def __init__(self):
-		# TODO: implement this!
-		pass
+		self.accounts = {}
 
 	def add_account(self, account):
-		# TODO: implement this!
-		return None
+		self.accounts[account.id] = account
 
 	def deposit_account(self, account, cost):
-		# TODO: implement this!
-		return None
+		account.deposit(cost)
 
 	def withdraw_account(self, account, cost):
-		# TODO: implement this!
-		return None
+		account.withdraw(cost)
 	
 	def get_total_accounts(self):
-		# TODO: implement this!
-		return None
+		return self.accounts
+
+	def getAccount(self, accountId):
+		return self.accounts[accountId]
 
 	
