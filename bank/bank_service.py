@@ -1,3 +1,6 @@
+from .account import Account
+
+
 class BankService:
 	def __init__(self):
 		# TODO: implement this!
