@@ -9,14 +9,16 @@ class BankService:
 
 	def deposit_account(self, account, cost):
 		account.deposit(cost)
+		return account.balance + cost
 
 	def withdraw_account(self, account, cost):
-		account.withdraw(cost)
+		balance = account.balance
+		if balance >= cost:
+			account.withdraw(cost)
+		return balance - cost
 	
 	def get_total_accounts(self):
 		return self.accounts
 
 	def getAccount(self, accountId):
 		return self.accounts[accountId]
-
-	

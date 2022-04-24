@@ -14,9 +14,13 @@ def select_account(inputMessage):
 	return account
 
 def create_account_by_user():
+	global lionBank
 	id = input("계좌번호 : ")
 	err.raise_error_if_invalid_id(id)
+	if lionBank.accounts.get(id, None) != None:
+		raise err.InvalidIdException("이미 존재하는 계좌입니다.")
 	name = input("이름 : ")
+	err.raise_error_if_invalid_name(name)
 	balance = input("예금 : ")
 	err.raise_error_if_invalid_cash(balance)
 	return bank.Account(id, name, int(balance))
@@ -50,7 +54,10 @@ if __name__ == "__main__":
 				account = select_account("출금하실 계좌번호를 입력해주세요 :")
 				cost = input("출금하실 금액을 입력해주세요 : ")
 				err.raise_error_if_invalid_cash(cost)
-				lionBank.withdraw_account(account, int(cost))
+				balance = lionBank.withdraw_account(account, int(cost))
+				if balance < 0:
+					print("\n잔액부족")
+					continue
 				print(f"\n## 계좌잔고 : {account.balance:11d} 원 ##")
 				print("## 출금이 완료되었습니다 ##")
 				print("================")
@@ -69,6 +76,8 @@ if __name__ == "__main__":
 			elif bank_menu == str(6):
 				print("##프로그램을 종료합니다##")
 				break
+		except KeyError as k:
+			print("\n===존재하지 않는 계좌입니다.===")
 		except Exception as e:
 			print(e)
 

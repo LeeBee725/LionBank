@@ -12,6 +12,10 @@ def raise_error_if_invalid_id(accountId):
 	if is_invalid_id_size(accountId) or is_invalid_nums(accountId):
 		raise InvalidIdException()
 
+def raise_error_if_invalid_name(name):
+	if len(name) == 0:
+		raise InvalidNameException()
+
 def raise_error_if_invalid_cash(cash):
 	if is_invalid_nums(cash):
 		raise InvalidCashException()
@@ -23,6 +27,13 @@ def raise_error_if_invalid_userInput(userInput):
 class InvalidIdException(Exception):
 	def __init__(self):
 		super().__init__("계좌번호 입력이 올바르지 않습니다.")
+
+	def __init__(self, message):
+		super().__init__(message)
+
+class InvalidNameException(Exception):
+	def __init__(self):
+		super().__init__("이름 입력이 올바르지 않습니다.")
 
 class InvalidCashException(Exception):
 	def __init__(self):
