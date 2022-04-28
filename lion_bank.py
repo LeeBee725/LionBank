@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
 	while True:
 		try:
-			print("======Bank Menu=====\n1. 계좌개설\n2. 입금하기\n3. 출금하기\n4. 전체조회\n5. 계좌조회\n6. 프로그램 종료\n==================== " )
+			print("======Bank Menu=====\n1. 계좌개설\n2. 입금하기\n3. 출금하기\n4. 전체조회\n5. 계좌삭제\n6. 프로그램 종료\n==================== " )
 
 			bank_menu = input("입력 :")
 			err.raise_error_if_invalid_userInput(bank_menu)
@@ -71,8 +71,11 @@ if __name__ == "__main__":
 					print(account)
 				print("====================")
 			elif bank_menu == str(5):
-				print("======개인과제======")
-
+				print("======계좌삭제======")
+				account = select_account("삭제하실 계좌번호를 입력해주세요 :")
+				lionBank.remove_account(account)
+				print(f"## {account.name}님의 {account.id} 계좌가 삭제되었습니다 ##")
+				print("====================")
 			elif bank_menu == str(6):
 				print("##프로그램을 종료합니다##")
 				break

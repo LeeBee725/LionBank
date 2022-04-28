@@ -22,3 +22,6 @@ class BankService:
 
 	def getAccount(self, accountId):
 		return self.accounts[accountId]
+
+	def remove_account(self, account):
+		del self.accounts[account.id]
