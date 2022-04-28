@@ -1,5 +1,5 @@
-import bank
-import bank.error as err
+import bank  # ㅍㅐ키지가 폴더 -모듈(.py로 끝나는 파일들)을 모아놓은 것
+import bank.error as err  #import 뒤에는 모듈/객체 from 패키지/모듈
 """
 	메뉴 선택 기능 구현
 """
@@ -23,21 +23,22 @@ def create_account_by_user():
 	err.raise_error_if_invalid_name(name)
 	balance = input("예금 : ")
 	err.raise_error_if_invalid_cash(balance)
-	return bank.Account(id, name, int(balance))
+	newAccount = bank.Account(id, name, int(balance))
+	return newAccount
 
 if __name__ == "__main__":
 	lionBank = bank.BankService()
 
 	while True:
 		try:
-			print("======Bank Menu=====\n1. 계좌개설\n2. 입금하기\n3. 출금하기\n4. 전체조회\n5. 계좌조회\n6. 프로그램 종료\n==================== " )
+			print("======Bank Menu=====\n1. 계좌개설\n2. 입금하기\n3. 출금하기\n4. 전체조회\n5. 송금\n6. 프로그램 종료\n==================== " )
 
 			bank_menu = input("입력 :")
 			err.raise_error_if_invalid_userInput(bank_menu)
 			if bank_menu == str(1):
 				print("======계좌개설=====")
-				account = create_account_by_user()
-				lionBank.add_account(account)
+				newAccount = create_account_by_user()
+				lionBank.add_account(newAccount)
 				print("###계좌개설을 완료하였습니다###")
 				print("================")
 			elif bank_menu == str(2):
@@ -71,7 +72,22 @@ if __name__ == "__main__":
 					print(account)
 				print("====================")
 			elif bank_menu == str(5):
-				print("======개인과제======")
+				print("======송금======")
+				account_from = select_account("보내시는 분 계좌번호를 입력해주세요 :")
+				account_to = select_account("받으시는 분 계좌번호를 입력해주세요 :")
+				cost = input("송금하실 금액을 입력해주세요 : ")
+				err.raise_error_if_invalid_cash(cost)
+				balance = lionBank.withdraw_account(account_from, int(cost))
+				if balance < 0:
+					print("\n잔액부족")
+					continue
+				lionBank.send_account(account_from, account_to, int(cost))
+				print(account_from.name + "님")
+				print(f"계좌잔고 : {account_from.balance:11d} 원 ")
+				print(account_to.name + "님")
+				print(f"계좌잔고 : {account_to.balance:11d} 원 ")
+				print("## 입금이 완료되었습니다 ##")
+				print("================")
 
 			elif bank_menu == str(6):
 				print("##프로그램을 종료합니다##")

@@ -1,4 +1,4 @@
-# from .account import Account
+from .account import Account
 
 class BankService:
 	def __init__(self):
@@ -8,7 +8,7 @@ class BankService:
 		self.accounts[account.id] = account
 
 	def deposit_account(self, account, cost):
-		account.deposit(cost)
+		account.deposit(cost)  #account?
 		return account.balance + cost
 
 	def withdraw_account(self, account, cost):
@@ -20,5 +20,13 @@ class BankService:
 	def get_total_accounts(self):
 		return self.accounts
 
+	def send_account(self, account_from, account_to, cost):
+		account_from.deposit(cost)
+		account_to.withdraw(cost)
+		pass
+
 	def getAccount(self, accountId):
-		return self.accounts[accountId]
+		find = self.accounts[accountId]
+		return find
+
+	
