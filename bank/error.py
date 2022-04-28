@@ -25,12 +25,12 @@ def raise_error_if_invalid_userInput(userInput):
 		raise InvalidUserInputException()
 
 class InvalidIdException(Exception):
-	def __init__(self):
-		super().__init__("계좌번호 입력이 올바르지 않습니다.")
-
-	def __init__(self, message):
-		super().__init__(message)
-
+	def __init__(self, message = None):
+		if message == None:
+			super().__init__("계좌번호 입력이 올바르지 않습니다.")
+		else:
+			super().__init__(message)
+		
 class InvalidNameException(Exception):
 	def __init__(self):
 		super().__init__("이름 입력이 올바르지 않습니다.")
